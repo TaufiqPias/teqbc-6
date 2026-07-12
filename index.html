@@ -3,18 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAUFIQ ENGLISH · C6</title>
+    <title>TE · C6 · QB</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Ubuntu+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://taufiqpias.github.io/teqbc-6/Favicon.png"
-    />
+    <link rel="icon" type="image/png" href="Favicon.png" />
     <style>
       :root {
         --amber: #ffbf00;
@@ -59,6 +55,7 @@
         background: var(--dark);
         color: var(--pale);
         padding: 10px 14px 8px;
+        position: relative;
       }
       .header-row {
         display: flex;
@@ -71,6 +68,8 @@
         align-items: baseline;
         gap: 8px;
         flex-wrap: wrap;
+        flex: 1;
+        min-width: 0;
       }
       .brand .mark {
         font-family: "Ubuntu Mono", monospace;
@@ -98,6 +97,12 @@
       }
 
       /* ---------- Hamburger button ---------- */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: none;
+      }
       .menu-btn {
         all: unset;
         cursor: pointer;
@@ -153,6 +158,182 @@
       .menu-btn.open .bars span:nth-child(3) {
         top: 6px;
         transform: rotate(-45deg);
+      }
+
+      /* ---------- Search ---------- */
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+        padding: 0 9px;
+        height: 36px;
+        width: 350px;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .search-box:focus-within {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: var(--amber);
+      }
+      .search-box svg {
+        flex: none;
+        width: 16px;
+        height: 16px;
+        color: var(--pale);
+        opacity: 0.75;
+      }
+      .search-box input {
+        all: unset;
+        flex: 1;
+        min-width: 0;
+        color: #fff;
+        font-size: 0.8rem;
+        font-family: "Ubuntu", sans-serif;
+      }
+      .search-box input::placeholder {
+        color: rgba(253, 241, 68, 0.5);
+      }
+      .search-box input::-webkit-search-cancel-button {
+        display: none;
+      }
+      .search-clear {
+        all: unset;
+        cursor: pointer;
+        flex: none;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--pale);
+        opacity: 0.75;
+        font-size: 0.7rem;
+        border-radius: 4px;
+      }
+      .search-clear:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .search-icon-btn {
+        display: none;
+      }
+
+      /* ---------- Mobile full-screen search modal ---------- */
+      .search-modal {
+        position: fixed;
+        inset: 0;
+        background: var(--dark);
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-100%);
+        transition: transform 0.22s ease;
+      }
+      .search-modal.open {
+        transform: translateY(0);
+      }
+      .search-modal-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        border-bottom: 2px solid var(--green);
+        flex: none;
+      }
+      .search-box-modal {
+        flex: 1;
+        width: auto;
+        height: 40px;
+      }
+      .search-modal-close {
+        all: unset;
+        cursor: pointer;
+        flex: none;
+        color: var(--pale);
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 8px 4px;
+        border-radius: 6px;
+      }
+      .search-modal-close:hover {
+        color: #fff;
+      }
+      .search-modal-results {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+      }
+      .search-modal-results.empty {
+        padding: 22px 16px;
+        font-size: 0.85rem;
+        color: var(--pale);
+        opacity: 0.8;
+      }
+
+      .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: min(420px, 70vh);
+        overflow-y: auto;
+        background: var(--dark);
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+        z-index: 25;
+        padding: 6px;
+      }
+      .search-results.empty {
+        padding: 16px 14px;
+        font-size: 0.8rem;
+        color: var(--pale);
+        opacity: 0.8;
+      }
+      .search-result-group {
+        margin-bottom: 4px;
+      }
+      .search-result-group-label {
+        font-family: "Ubuntu Mono", monospace;
+        font-size: 0.66rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--amber);
+        padding: 6px 8px 4px;
+      }
+      .search-result-item {
+        display: block;
+        width: 100%;
+        text-align: left;
+        all: unset;
+        cursor: pointer;
+        padding: 8px 9px;
+        border-radius: 7px;
+        color: var(--pale);
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+      .search-result-item:hover,
+      .search-result-item:focus-visible {
+        background: #33502c;
+        color: #fff;
+      }
+      .search-result-item .snippet {
+        display: block;
+        font-size: 0.72rem;
+        color: rgba(253, 244, 68, 0.75);
+        margin-top: 2px;
+        font-weight: 300;
+      }
+      .search-result-item mark {
+        background: var(--amber);
+        color: var(--dark);
+        border-radius: 2px;
+        padding: 0 1px;
       }
 
       /* ---------- Floating side menu ---------- */
@@ -431,6 +612,21 @@
         border-left: 4px solid var(--amber);
         border-radius: 8px;
         padding: 10px 12px;
+        scroll-margin-top: var(--sticky-offset, 160px);
+      }
+      .exercise-card.flash-highlight {
+        animation: flashHighlight 1.6s ease;
+      }
+      @keyframes flashHighlight {
+        0% {
+          box-shadow: 0 0 0 3px var(--amber);
+        }
+        70% {
+          box-shadow: 0 0 0 3px var(--amber);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 191, 0, 0);
+        }
       }
       .exercise-card .card-top {
         display: flex;
@@ -677,6 +873,21 @@
         header h1 {
           font-size: 1rem;
         }
+        .header-row {
+          flex-wrap: wrap;
+          row-gap: 8px;
+        }
+        .header-actions {
+          width: auto;
+        }
+        .search-box {
+          display: none;
+        }
+        .search-icon-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .tab {
           padding: 0 11px;
           font-size: 0.76rem;
@@ -702,19 +913,85 @@
             <span class="mark">CLASS 6</span>
             <h1>TAUFIQ ENGLISH QUESTION BANK</h1>
           </div>
-          <button
-            class="menu-btn"
-            id="menuBtn"
-            type="button"
-            aria-label="Open menu"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="sideMenu"
-          >
-            <span class="bars"><span></span><span></span><span></span></span>
-          </button>
+          <div class="header-actions">
+            <div class="search-box" id="searchBox">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <line
+                  x1="21"
+                  y1="21"
+                  x2="16.65"
+                  y2="16.65"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <input
+                type="search"
+                id="searchInput"
+                placeholder="Search exercises…"
+                aria-label="Search question bank"
+                autocomplete="off"
+              />
+              <button
+                class="search-clear"
+                id="searchClear"
+                type="button"
+                aria-label="Clear search"
+                hidden
+              >
+                ✕
+              </button>
+            </div>
+            <button
+              class="menu-btn search-icon-btn"
+              id="searchIconBtn"
+              type="button"
+              aria-label="Search"
+              aria-haspopup="dialog"
+              aria-controls="searchModal"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <line
+                  x1="21"
+                  y1="21"
+                  x2="16.65"
+                  y2="16.65"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+            <button
+              class="menu-btn"
+              id="menuBtn"
+              type="button"
+              aria-label="Open menu"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="sideMenu"
+            >
+              <span class="bars"><span></span><span></span><span></span></span>
+            </button>
+          </div>
         </div>
         <p>Grammar exercises, organised by topic</p>
+        <div class="search-results" id="searchResults" hidden></div>
       </header>
 
       <div class="tabbar-outer">
@@ -726,6 +1003,58 @@
       </div>
     </div>
 
+    <div
+      class="search-modal"
+      id="searchModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search"
+      aria-hidden="true"
+    >
+      <div class="search-modal-head">
+        <div class="search-box search-box-modal" id="searchBoxModal">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <line
+              x1="21"
+              y1="21"
+              x2="16.65"
+              y2="16.65"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <input
+            type="search"
+            id="searchInputModal"
+            placeholder="Search exercises…"
+            aria-label="Search question bank"
+            autocomplete="off"
+          />
+          <button
+            class="search-clear"
+            id="searchClearModal"
+            type="button"
+            aria-label="Clear search"
+            hidden
+          >
+            ✕
+          </button>
+        </div>
+        <button class="search-modal-close" id="searchModalClose" type="button">
+          Cancel
+        </button>
+      </div>
+      <div class="search-modal-results" id="searchResultsModal"></div>
+    </div>
+
     <div class="menu-overlay" id="menuOverlay"></div>
     <aside
       class="side-menu"
@@ -734,7 +1063,7 @@
       aria-label="Site menu"
     >
       <div class="side-menu-head">
-        <span>MENU</span>
+        <span>Question Banks</span>
         <button
           class="side-menu-close"
           id="menuCloseBtn"
@@ -745,31 +1074,11 @@
         </button>
       </div>
       <ul class="side-menu-list" id="sideMenuList">
-        <li>
-          <a href="https://taufiqpias.github.io/teqbc-6/"
-            >Class 6 Question Bank</a
-          >
-        </li>
-        <li>
-          <a href="https://taufiqpias.github.io/teqbc-7/"
-            >Class 7 Question Bank</a
-          >
-        </li>
-        <li>
-          <a href="https://taufiqpias.github.io/teqbc-8/"
-            >Class 8 Question Bank</a
-          >
-        </li>
-        <li>
-          <a href="https://taufiqpias.github.io/teqbc-9-10/"
-            >Class 9-10 Question Bank</a
-          >
-        </li>
-        <li>
-          <a href="https://taufiqpias.github.io/teqbc-11-12/"
-            >Class 11-12 Question Bank</a
-          >
-        </li>
+        <li><a href="#">Class 6 Question Bank</a></li>
+        <li><a href="#">Class 7 Question Bank</a></li>
+        <li><a href="#">Class 8 Question Bank</a></li>
+        <li><a href="#">Class 9-10 Question Bank</a></li>
+        <li><a href="#">Class 11-12 Question Bank</a></li>
         <li><a href="#">Admission Question Bank</a></li>
         <li><a href="#">National University Question Bank</a></li>
         <li><a href="#">Poetry Collection</a></li>
@@ -5254,8 +5563,8 @@
           <div class="exercise-grid">
             ${c.exercises
               .map(
-                (ex) => `
-              <div class="exercise-card">
+                (ex, exIdx) => `
+              <div class="exercise-card" id="ex-${c.id}-${exIdx}">
                 <div class="card-top">
                   <h3>${ex.title || ""}</h3>
                   ${ex.marks ? `<span class="marks">${ex.marks}</span>` : ""}
@@ -5443,6 +5752,264 @@
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeMenu();
       });
+
+      /* ---------- Real-time search ---------- */
+      function escapeHtml(str) {
+        return String(str).replace(
+          /[&<>"']/g,
+          (ch) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[ch],
+        );
+      }
+
+      function extractExerciseText(ex) {
+        const parts = [];
+        if (ex.title) parts.push(ex.title);
+        if (ex.instruction) parts.push(ex.instruction);
+        if (ex.wordbox) parts.push(ex.wordbox.join(" "));
+        if (ex.jumbled) parts.push(ex.jumbled.join(" "));
+        if (ex.passage)
+          parts.push(
+            Array.isArray(ex.passage) ? ex.passage.join(" ") : ex.passage,
+          );
+        if (ex.text) parts.push(ex.text);
+        if (ex.table) {
+          parts.push(ex.table.headers.join(" "));
+          ex.table.rows.forEach((r) => parts.push(r.join(" ")));
+        }
+        if (ex.sections) {
+          ex.sections.forEach((sec) => {
+            if (sec.label) parts.push(sec.label);
+            if (sec.instruction) parts.push(sec.instruction);
+            if (sec.table) {
+              parts.push(sec.table.headers.join(" "));
+              sec.table.rows.forEach((r) => parts.push(r.join(" ")));
+            }
+            if (sec.tf) parts.push(sec.tf.join(" "));
+          });
+        }
+        return parts.join(" ");
+      }
+
+      const SEARCH_INDEX = [];
+      CATEGORIES.forEach((c) => {
+        c.exercises.forEach((ex, exIdx) => {
+          const text = extractExerciseText(ex);
+          SEARCH_INDEX.push({
+            catId: c.id,
+            catName: c.name,
+            catNum: c.num,
+            exIdx,
+            title: ex.title || `Exercise ${exIdx + 1}`,
+            text,
+            textLower: text.toLowerCase(),
+          });
+        });
+      });
+
+      function buildSnippet(text, q) {
+        const lower = text.toLowerCase();
+        const idx = lower.indexOf(q);
+        if (idx === -1) return text.slice(0, 80);
+        const start = Math.max(0, idx - 28);
+        const end = Math.min(text.length, idx + q.length + 32);
+        return (
+          (start > 0 ? "…" : "") +
+          text.slice(start, end).trim() +
+          (end < text.length ? "…" : "")
+        );
+      }
+
+      function highlightMatch(str, q) {
+        const escaped = escapeHtml(str);
+        if (!q) return escaped;
+        const qEsc = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const re = new RegExp(`(${qEsc})`, "ig");
+        return escaped.replace(re, "<mark>$1</mark>");
+      }
+
+      function computeMatches(rawQuery) {
+        const q = rawQuery.trim().toLowerCase();
+        if (!q) return { q, matches: [] };
+        const matches = SEARCH_INDEX.filter(
+          (item) =>
+            item.textLower.includes(q) || item.title.toLowerCase().includes(q),
+        );
+        matches.sort((a, b) => {
+          const aTitle = a.title.toLowerCase().includes(q) ? 0 : 1;
+          const bTitle = b.title.toLowerCase().includes(q) ? 0 : 1;
+          return aTitle - bTitle;
+        });
+        return { q, matches: matches.slice(0, 40) };
+      }
+
+      function goToResult(catId, exIdx) {
+        setActive(catId);
+        requestAnimationFrame(() => {
+          const card = document.getElementById(`ex-${catId}-${exIdx}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+            card.classList.add("flash-highlight");
+            setTimeout(() => card.classList.remove("flash-highlight"), 1600);
+          }
+        });
+      }
+
+      // Wires up an input + clear button + results container as one
+      // self-contained search UI. Used for both the desktop inline box
+      // and the mobile full-screen modal.
+      function createSearchUI({ input, clearBtn, resultsEl, onNavigate }) {
+        function hideResults() {
+          resultsEl.hidden = true;
+          resultsEl.classList.remove("empty");
+          resultsEl.innerHTML = "";
+        }
+
+        function renderResults(q, matches) {
+          if (!matches.length) {
+            resultsEl.classList.add("empty");
+            resultsEl.innerHTML = `No exercises found for "${escapeHtml(q)}".`;
+            resultsEl.hidden = false;
+            return;
+          }
+          resultsEl.classList.remove("empty");
+          const groups = new Map();
+          matches.forEach((m) => {
+            if (!groups.has(m.catId))
+              groups.set(m.catId, {
+                name: m.catName,
+                num: m.catNum,
+                items: [],
+              });
+            groups.get(m.catId).items.push(m);
+          });
+          let html = "";
+          groups.forEach((g) => {
+            html += `<div class="search-result-group"><div class="search-result-group-label">${escapeHtml(g.num)} ${escapeHtml(g.name)}</div>`;
+            g.items.forEach((item) => {
+              html += `<button type="button" class="search-result-item" data-cat="${item.catId}" data-ex="${item.exIdx}">${highlightMatch(item.title, q)}<span class="snippet">${highlightMatch(buildSnippet(item.text, q), q)}</span></button>`;
+            });
+            html += `</div>`;
+          });
+          resultsEl.innerHTML = html;
+          resultsEl.hidden = false;
+          resultsEl.querySelectorAll(".search-result-item").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              goToResult(btn.dataset.cat, Number(btn.dataset.ex));
+              hideResults();
+              if (onNavigate) onNavigate();
+            });
+          });
+        }
+
+        function runSearch(rawQuery) {
+          const { q, matches } = computeMatches(rawQuery);
+          if (!q) {
+            hideResults();
+            return;
+          }
+          renderResults(q, matches);
+        }
+
+        let debounceTimer;
+        input.addEventListener("input", (e) => {
+          const val = e.target.value;
+          clearBtn.hidden = !val;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => runSearch(val), 100);
+        });
+
+        input.addEventListener("focus", () => {
+          if (input.value.trim()) runSearch(input.value);
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            const first = resultsEl.querySelector(".search-result-item");
+            if (first) first.click();
+          } else if (e.key === "Escape") {
+            hideResults();
+            input.blur();
+          }
+        });
+
+        clearBtn.addEventListener("click", () => {
+          input.value = "";
+          clearBtn.hidden = true;
+          hideResults();
+          input.focus();
+        });
+
+        return { hideResults };
+      }
+
+      // Desktop / tablet inline search box
+      const searchBox = document.getElementById("searchBox");
+      const desktopSearch = createSearchUI({
+        input: document.getElementById("searchInput"),
+        clearBtn: document.getElementById("searchClear"),
+        resultsEl: document.getElementById("searchResults"),
+      });
+      document.addEventListener("click", (e) => {
+        if (
+          !searchBox.contains(e.target) &&
+          !document.getElementById("searchResults").contains(e.target)
+        ) {
+          desktopSearch.hideResults();
+        }
+      });
+
+      // Mobile full-screen search modal
+      const searchIconBtn = document.getElementById("searchIconBtn");
+      const searchModal = document.getElementById("searchModal");
+      const searchModalClose = document.getElementById("searchModalClose");
+      const searchModalInput = document.getElementById("searchInputModal");
+
+      function openSearchModal() {
+        searchModal.classList.add("open");
+        searchModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => searchModalInput.focus(), 50);
+      }
+
+      function closeSearchModal() {
+        searchModal.classList.remove("open");
+        searchModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        mobileSearch.hideResults();
+      }
+
+      const mobileSearch = createSearchUI({
+        input: searchModalInput,
+        clearBtn: document.getElementById("searchClearModal"),
+        resultsEl: document.getElementById("searchResultsModal"),
+        onNavigate: closeSearchModal,
+      });
+
+      searchIconBtn.addEventListener("click", openSearchModal);
+      searchModalClose.addEventListener("click", closeSearchModal);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && searchModal.classList.contains("open")) {
+          closeSearchModal();
+        }
+      });
+
+      /* Keep sticky header offset in sync so search-jumps land below it */
+      const siteTop = document.querySelector(".site-top");
+      function updateStickyOffset() {
+        document.documentElement.style.setProperty(
+          "--sticky-offset",
+          `${siteTop.offsetHeight + 12}px`,
+        );
+      }
+      window.addEventListener("resize", updateStickyOffset);
+      updateStickyOffset();
     </script>
   </body>
 </html>
