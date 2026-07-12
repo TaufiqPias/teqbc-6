@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TE · C6 · QB</title>
+    <title>TAUFIQ ENGLISH · C6</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,12 +31,17 @@
         margin: 0;
         padding: 0;
       }
+      html {
+        overflow-x: hidden;
+      }
       body {
         font-family: "Ubuntu", sans-serif;
         background: var(--cream);
         color: var(--ink);
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
+        overflow-x: hidden;
+        width: 100%;
       }
 
       /* ---------- Header ---------- */
@@ -50,6 +55,12 @@
         background: var(--dark);
         color: var(--pale);
         padding: 10px 14px 8px;
+      }
+      .header-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
       }
       .brand {
         display: flex;
@@ -82,16 +93,189 @@
         font-weight: 300;
       }
 
+      /* ---------- Hamburger button ---------- */
+      .menu-btn {
+        all: unset;
+        cursor: pointer;
+        flex: none;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: background 0.15s ease;
+      }
+      .menu-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .menu-btn:focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+      }
+      .menu-btn .bars {
+        position: relative;
+        width: 20px;
+        height: 14px;
+      }
+      .menu-btn .bars span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--pale);
+        transition:
+          transform 0.22s ease,
+          opacity 0.15s ease,
+          top 0.22s ease;
+      }
+      .menu-btn .bars span:nth-child(1) {
+        top: 0;
+      }
+      .menu-btn .bars span:nth-child(2) {
+        top: 6px;
+      }
+      .menu-btn .bars span:nth-child(3) {
+        top: 12px;
+      }
+      .menu-btn.open .bars span:nth-child(1) {
+        top: 6px;
+        transform: rotate(45deg);
+      }
+      .menu-btn.open .bars span:nth-child(2) {
+        opacity: 0;
+      }
+      .menu-btn.open .bars span:nth-child(3) {
+        top: 6px;
+        transform: rotate(-45deg);
+      }
+
+      /* ---------- Floating side menu ---------- */
+      .menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 15, 8, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 40;
+      }
+      .menu-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .side-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        height: 100dvh;
+        width: min(300px, 84vw);
+        background: var(--dark);
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.35);
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        z-index: 41;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .side-menu.open {
+        transform: translateX(0);
+      }
+      .side-menu-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 14px 14px 12px;
+        border-bottom: 2px solid var(--green);
+        flex: none;
+      }
+      .side-menu-head span {
+        font-family: "Ubuntu Mono", monospace;
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--amber);
+      }
+      .side-menu-close {
+        all: unset;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        color: var(--pale);
+        font-size: 1.1rem;
+        line-height: 1;
+        transition: background 0.15s ease;
+      }
+      .side-menu-close:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .side-menu-list {
+        list-style: none;
+        margin: 0;
+        padding: 6px 8px 20px;
+        overflow-y: auto;
+        flex: 1;
+      }
+      .side-menu-list li + li {
+        margin-top: 2px;
+      }
+      .side-menu-list a {
+        display: block;
+        padding: 10px 10px;
+        border-radius: 7px;
+        color: var(--pale);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: background 0.15s ease;
+      }
+      .side-menu-list a:hover,
+      .side-menu-list a:focus-visible {
+        background: #33502c;
+        color: #fff;
+        outline: none;
+      }
+      .side-menu-divider {
+        height: 1px;
+        background: var(--line);
+        background: rgba(255, 255, 255, 0.12);
+        margin: 10px 6px;
+      }
+
       /* ---------- Tabs (binder-index style) ---------- */
+      .tabbar-outer {
+        position: relative;
+        background: var(--dark);
+      }
       .tabbar-wrap {
         background: var(--dark);
         padding: 10px 8px 0;
         overflow-x: auto;
+        overflow-y: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
+        cursor: grab;
+        user-select: none;
       }
       .tabbar-wrap::-webkit-scrollbar {
         display: none;
+      }
+      .tabbar-wrap.dragging {
+        cursor: grabbing;
+        scroll-behavior: auto;
       }
       .tabbar {
         display: flex;
@@ -99,6 +283,28 @@
         min-width: max-content;
         align-items: flex-end;
         padding-bottom: 0;
+      }
+      /* Edge fades to hint there's more to scroll (mobile especially) */
+      .tabbar-fade {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 22px;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .tabbar-fade.left {
+        left: 0;
+        background: linear-gradient(to right, var(--dark), rgba(40, 63, 36, 0));
+      }
+      .tabbar-fade.right {
+        right: 0;
+        background: linear-gradient(to left, var(--dark), rgba(40, 63, 36, 0));
+      }
+      .tabbar-fade.show {
+        opacity: 1;
       }
       .tab {
         all: unset;
@@ -296,6 +502,13 @@
         text-align: left;
         vertical-align: top;
         line-height: 1.4;
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+      .table-scroll {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .sub-table th {
         background: var(--cream);
@@ -480,17 +693,80 @@
   <body>
     <div class="site-top">
       <header>
-        <div class="brand">
-          <span class="mark">CLASS 6</span>
-          <h1>TAUFIQ ENGLISH QUESTION BANK</h1>
+        <div class="header-row">
+          <div class="brand">
+            <span class="mark">CLASS 6</span>
+            <h1>TAUFIQ ENGLISH QUESTION BANK</h1>
+          </div>
+          <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Open menu"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="sideMenu"
+          >
+            <span class="bars"><span></span><span></span><span></span></span>
+          </button>
         </div>
         <p>Grammar exercises, organised by topic</p>
       </header>
 
-      <nav class="tabbar-wrap" aria-label="Categories">
-        <div class="tabbar" id="tabbar"></div>
-      </nav>
+      <div class="tabbar-outer">
+        <nav class="tabbar-wrap" id="tabbarWrap" aria-label="Categories">
+          <div class="tabbar" id="tabbar"></div>
+        </nav>
+        <div class="tabbar-fade left" id="fadeLeft"></div>
+        <div class="tabbar-fade right" id="fadeRight"></div>
+      </div>
     </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <aside
+      class="side-menu"
+      id="sideMenu"
+      aria-hidden="true"
+      aria-label="Site menu"
+    >
+      <div class="side-menu-head">
+        <span>MENU</span>
+        <button
+          class="side-menu-close"
+          id="menuCloseBtn"
+          type="button"
+          aria-label="Close menu"
+        >
+          ✕
+        </button>
+      </div>
+      <ul class="side-menu-list" id="sideMenuList">
+        <li><a href="#">Class 6 Question Bank</a></li>
+        <li><a href="#">Class 7 Question Bank</a></li>
+        <li><a href="#">Class 8 Question Bank</a></li>
+        <li><a href="#">Class 9-10 Question Bank</a></li>
+        <li><a href="#">Class 11-12 Question Bank</a></li>
+        <li><a href="#">Admission Question Bank</a></li>
+        <li><a href="#">National University Question Bank</a></li>
+        <li><a href="#">Poetry Collection</a></li>
+        <li><a href="#">Paragraphs Collection</a></li>
+        <li><a href="#">Dialogues Collection</a></li>
+        <li><a href="#">Informal Letter Collection</a></li>
+        <li><a href="#">Formal Letter Collection</a></li>
+        <li><a href="#">Email Collection</a></li>
+        <li><a href="#">Report Writing Collection</a></li>
+        <li><a href="#">Story Writing Collection</a></li>
+        <li><a href="#">Composition Collection</a></li>
+        <li><a href="#">Essay Collection</a></li>
+        <li class="side-menu-divider" role="separator"></li>
+        <li><a href="#">Conjugation of Verbs</a></li>
+        <li><a href="#">Conjugation of Adjectives</a></li>
+        <li><a href="#">Appropriate Prepositions</a></li>
+        <li><a href="#">Group Verbs</a></li>
+        <li><a href="#">Idioms</a></li>
+        <li><a href="#">Translation</a></li>
+      </ul>
+    </aside>
 
     <main id="main"></main>
 
@@ -4962,7 +5238,7 @@
                 </div>
                 ${ex.instruction ? `<p style="margin-bottom:6px;font-weight:700; font-size:14px; color: var(--pale); background-color: #262626; padding: 5px 10px; border-radius: 5px;">➤ ${ex.instruction}</p>` : ""}
                 ${ex.wordbox ? `<div class="wordbox">${ex.wordbox.map((w) => `<span class="chip">${w}</span>`).join("")}</div>` : ""}
-                ${ex.table ? `<table class="sub-table"><thead><tr>${ex.table.headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${ex.table.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>` : ""}
+                ${ex.table ? `<div class="table-scroll"><table class="sub-table"><thead><tr>${ex.table.headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${ex.table.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}
                 ${ex.jumbled ? `<ul class="jumbled-list">${ex.jumbled.map((s, idx) => `<li><span class="letter">${String.fromCharCode(97 + idx)}</span><span>${s}</span></li>`).join("")}</ul>` : ""}
                 ${ex.passage ? (Array.isArray(ex.passage) ? ex.passage.map((para) => `<p class="passage">${para}</p>`).join("") : `<p class="passage">${ex.passage}</p>`) : ""}
                 ${ex.text ? `<p>${ex.text}</p>` : ""}
@@ -4978,7 +5254,7 @@
                       ${sec.marks ? `<span class="marks">${sec.marks}</span>` : ""}
                     </div>
                     ${sec.instruction ? `<p style="margin-bottom:6px;font-weight:700; font-size:14px; color: var(--pale); background-color: #262626; padding: 5px 10px; border-radius: 5px;">➤ ${sec.instruction}</p>` : ""}
-                    ${sec.table ? `<table class="sub-table"><thead><tr>${sec.table.headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${sec.table.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>` : ""}
+                    ${sec.table ? `<div class="table-scroll"><table class="sub-table"><thead><tr>${sec.table.headers.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${sec.table.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}
                     ${sec.tf ? `<ul class="tf-list">${sec.tf.map((s, idx) => `<li style="color: var(--pale);">(${String.fromCharCode(97 + idx)}) ${s}</li>`).join("")}</ul>` : ""}
                   </div>
                 `,
@@ -5029,6 +5305,120 @@
       }
 
       render();
+
+      /* ---------- Draggable tab bar ---------- */
+      const tabbarWrap = document.getElementById("tabbarWrap");
+      const fadeLeft = document.getElementById("fadeLeft");
+      const fadeRight = document.getElementById("fadeRight");
+
+      let isDown = false;
+      let didDrag = false;
+      let startX = 0;
+      let startScroll = 0;
+
+      function pointerX(e) {
+        return e.touches ? e.touches[0].clientX : e.clientX;
+      }
+
+      function dragStart(e) {
+        isDown = true;
+        didDrag = false;
+        startX = pointerX(e);
+        startScroll = tabbarWrap.scrollLeft;
+        tabbarWrap.classList.add("dragging");
+      }
+
+      function dragMove(e) {
+        if (!isDown) return;
+        const dx = pointerX(e) - startX;
+        if (Math.abs(dx) > 4) didDrag = true;
+        tabbarWrap.scrollLeft = startScroll - dx;
+        if (e.cancelable) e.preventDefault();
+      }
+
+      function dragEnd() {
+        isDown = false;
+        tabbarWrap.classList.remove("dragging");
+      }
+
+      // Mouse (desktop trackpads / mice)
+      tabbarWrap.addEventListener("mousedown", dragStart);
+      window.addEventListener("mousemove", dragMove);
+      window.addEventListener("mouseup", dragEnd);
+      tabbarWrap.addEventListener("mouseleave", () => {
+        if (isDown) dragEnd();
+      });
+
+      // Touch devices already get native momentum scrolling, but this
+      // keeps drag distance tracked so a swipe doesn't fire a tab click.
+      tabbarWrap.addEventListener("touchstart", dragStart, { passive: true });
+      tabbarWrap.addEventListener("touchmove", dragMove, { passive: true });
+      tabbarWrap.addEventListener("touchend", dragEnd);
+
+      // Swallow the click that follows a real drag so it doesn't
+      // accidentally switch tabs.
+      tabbarWrap.addEventListener(
+        "click",
+        (e) => {
+          if (didDrag) {
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        },
+        true,
+      );
+
+      function updateFades() {
+        const maxScroll = tabbarWrap.scrollWidth - tabbarWrap.clientWidth;
+        fadeLeft.classList.toggle("show", tabbarWrap.scrollLeft > 4);
+        fadeRight.classList.toggle(
+          "show",
+          tabbarWrap.scrollLeft < maxScroll - 4,
+        );
+      }
+
+      tabbarWrap.addEventListener("scroll", updateFades);
+      window.addEventListener("resize", updateFades);
+      updateFades();
+
+      /* ---------- Hamburger side menu ---------- */
+      const menuBtn = document.getElementById("menuBtn");
+      const menuCloseBtn = document.getElementById("menuCloseBtn");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const sideMenu = document.getElementById("sideMenu");
+
+      function openMenu() {
+        menuBtn.classList.add("open");
+        menuBtn.setAttribute("aria-expanded", "true");
+        menuOverlay.classList.add("open");
+        sideMenu.classList.add("open");
+        sideMenu.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMenu() {
+        menuBtn.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuOverlay.classList.remove("open");
+        sideMenu.classList.remove("open");
+        sideMenu.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      function toggleMenu() {
+        if (sideMenu.classList.contains("open")) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      }
+
+      menuBtn.addEventListener("click", toggleMenu);
+      menuCloseBtn.addEventListener("click", closeMenu);
+      menuOverlay.addEventListener("click", closeMenu);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
     </script>
   </body>
 </html>
