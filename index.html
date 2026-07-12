@@ -113,7 +113,15 @@
         align-items: center;
         justify-content: center;
         border-radius: 8px;
+        color: var(--pale);
         transition: background 0.15s ease;
+      }
+      .menu-btn svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+        flex: none;
+        color: var(--pale);
       }
       .menu-btn:hover {
         background: rgba(255, 255, 255, 0.08);
@@ -170,7 +178,7 @@
         border-radius: 8px;
         padding: 0 9px;
         height: 36px;
-        width: 350px;
+        width: 190px;
         transition:
           background 0.15s ease,
           border-color 0.15s ease;
@@ -190,9 +198,13 @@
         all: unset;
         flex: 1;
         min-width: 0;
+        width: 100%;
         color: #fff;
+        background: transparent;
         font-size: 0.8rem;
         font-family: "Ubuntu", sans-serif;
+        -webkit-appearance: none;
+        appearance: none;
       }
       .search-box input::placeholder {
         color: rgba(253, 241, 68, 0.5);
@@ -880,7 +892,7 @@
         .header-actions {
           width: auto;
         }
-        .search-box {
+        #searchBox {
           display: none;
         }
         .search-icon-btn {
@@ -5975,7 +5987,7 @@
         searchModal.classList.add("open");
         searchModal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
-        setTimeout(() => searchModalInput.focus(), 50);
+        setTimeout(() => searchModalInput.focus({ preventScroll: true }), 50);
       }
 
       function closeSearchModal() {
